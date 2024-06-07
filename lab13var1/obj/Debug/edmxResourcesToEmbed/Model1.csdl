@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FootballModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Matches">
+    <Key>
+      <PropertyRef Name="IdMatch" />
+    </Key>
+    <Property Name="IdMatch" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="HomeTeam" Type="Int32" Nullable="false" />
+    <Property Name="GuestTeam" Type="Int32" Nullable="false" />
+    <Property Name="Score" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Teams" Relationship="Self.FK_Matches_Teams" FromRole="Matches" ToRole="Teams" />
+    <NavigationProperty Name="Teams1" Relationship="Self.FK_Matches_Teams1" FromRole="Matches" ToRole="Teams" />
+  </EntityType>
+  <EntityType Name="Players">
+    <Key>
+      <PropertyRef Name="IdPlayer" />
+    </Key>
+    <Property Name="IdPlayer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="FatherName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Birthday" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="PhoneNumber" Type="Int32" Nullable="false" />
+    <Property Name="IdTeam" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Teams" Relationship="Self.FK_Players_Teams" FromRole="Players" ToRole="Teams" />
+  </EntityType>
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="IdTeam" />
+    </Key>
+    <Property Name="IdTeam" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Matches" Relationship="Self.FK_Matches_Teams" FromRole="Teams" ToRole="Matches" />
+    <NavigationProperty Name="Matches1" Relationship="Self.FK_Matches_Teams1" FromRole="Teams" ToRole="Matches" />
+    <NavigationProperty Name="Players" Relationship="Self.FK_Players_Teams" FromRole="Teams" ToRole="Players" />
+  </EntityType>
+  <Association Name="FK_Matches_Teams">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+    <End Role="Matches" Type="Self.Matches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="IdTeam" />
+      </Principal>
+      <Dependent Role="Matches">
+        <PropertyRef Name="HomeTeam" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Matches_Teams1">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+    <End Role="Matches" Type="Self.Matches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="IdTeam" />
+      </Principal>
+      <Dependent Role="Matches">
+        <PropertyRef Name="GuestTeam" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Players_Teams">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+    <End Role="Players" Type="Self.Players" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="IdTeam" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="IdTeam" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FootballEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Matches" EntityType="Self.Matches" />
+    <EntitySet Name="Players" EntityType="Self.Players" />
+    <EntitySet Name="Teams" EntityType="Self.Teams" />
+    <AssociationSet Name="FK_Matches_Teams" Association="Self.FK_Matches_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Matches" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Matches_Teams1" Association="Self.FK_Matches_Teams1">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Matches" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Players_Teams" Association="Self.FK_Players_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Хранилище FootballModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Matches">
+    <Key>
+      <PropertyRef Name="IdMatch" />
+    </Key>
+    <Property Name="IdMatch" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="HomeTeam" Type="int" Nullable="false" />
+    <Property Name="GuestTeam" Type="int" Nullable="false" />
+    <Property Name="Score" Type="varchar" MaxLength="10" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Players">
+    <Key>
+      <PropertyRef Name="IdPlayer" />
+    </Key>
+    <Property Name="IdPlayer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Surname" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="FatherName" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Birthday" Type="date" Nullable="false" />
+    <Property Name="Photo" Type="varbinary(max)" />
+    <Property Name="PhoneNumber" Type="int" Nullable="false" />
+    <Property Name="IdTeam" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Teams">
+    <Key>
+      <PropertyRef Name="IdTeam" />
+    </Key>
+    <Property Name="IdTeam" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Matches_Teams">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+    <End Role="Matches" Type="Self.Matches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="IdTeam" />
+      </Principal>
+      <Dependent Role="Matches">
+        <PropertyRef Name="HomeTeam" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Matches_Teams1">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+    <End Role="Matches" Type="Self.Matches" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="IdTeam" />
+      </Principal>
+      <Dependent Role="Matches">
+        <PropertyRef Name="GuestTeam" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Players_Teams">
+    <End Role="Teams" Type="Self.Teams" Multiplicity="1" />
+    <End Role="Players" Type="Self.Players" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teams">
+        <PropertyRef Name="IdTeam" />
+      </Principal>
+      <Dependent Role="Players">
+        <PropertyRef Name="IdTeam" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Хранилище FootballModelContainer">
+    <EntitySet Name="Matches" EntityType="Self.Matches" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Teams" EntityType="Self.Teams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Matches_Teams" Association="Self.FK_Matches_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Matches" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Matches_Teams1" Association="Self.FK_Matches_Teams1">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Matches" EntitySet="Matches" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Players_Teams" Association="Self.FK_Players_Teams">
+      <End Role="Teams" EntitySet="Teams" />
+      <End Role="Players" EntitySet="Players" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

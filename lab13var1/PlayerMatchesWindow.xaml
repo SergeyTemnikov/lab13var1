@@ -1,0 +1,33 @@
+﻿<Window x:Class="lab13var1.PlayerMatchesWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:lab13var1"
+        mc:Ignorable="d"
+        Title="Матчи игрока" Height="450" Width="420">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="10"/>
+            <RowDefinition/>
+            <RowDefinition Height="10"/>
+            <RowDefinition Height="6*"/>
+        </Grid.RowDefinitions>
+        <Rectangle Fill="LightGreen" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4"></Rectangle>
+        <TextBlock Name="txtName" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" TextWrapping="Wrap" Text="Игрок: " Foreground="Black" 
+                    FontWeight="Bold" TextAlignment="Center" VerticalAlignment="Center"/>
+
+        <TextBlock Name="txtMatchesCount" Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" TextWrapping="Wrap" Text="Количество сыгранных матчей: " Foreground="Black" 
+                     TextAlignment="Left" VerticalAlignment="Center" Margin="15,5,15,5"/>
+
+        <DataGrid Name="dgMatches" Grid.Row="4" IsReadOnly="True" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Домашная команда" Binding="{Binding Teams.Name}" Width="2*"/>
+                <DataGridTextColumn Header="Гостевая команда" Binding="{Binding Teams1.Name}" Width="2*"/>
+                <DataGridTextColumn Header="Счет" Binding="{Binding Score}" Width="*"/>
+                <DataGridTextColumn Header="Дата" Binding="{Binding DateString}" Width="1.5*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

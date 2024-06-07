@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище FootballModelContainer" CdmEntityContainer="FootballEntities">
+    <EntitySetMapping Name="Matches">
+      <EntityTypeMapping TypeName="FootballModel.Matches">
+        <MappingFragment StoreEntitySet="Matches">
+          <ScalarProperty Name="IdMatch" ColumnName="IdMatch" />
+          <ScalarProperty Name="HomeTeam" ColumnName="HomeTeam" />
+          <ScalarProperty Name="GuestTeam" ColumnName="GuestTeam" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Players">
+      <EntityTypeMapping TypeName="FootballModel.Players">
+        <MappingFragment StoreEntitySet="Players">
+          <ScalarProperty Name="IdPlayer" ColumnName="IdPlayer" />
+          <ScalarProperty Name="Surname" ColumnName="Surname" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="FatherName" ColumnName="FatherName" />
+          <ScalarProperty Name="Birthday" ColumnName="Birthday" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="IdTeam" ColumnName="IdTeam" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Teams">
+      <EntityTypeMapping TypeName="FootballModel.Teams">
+        <MappingFragment StoreEntitySet="Teams">
+          <ScalarProperty Name="IdTeam" ColumnName="IdTeam" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
